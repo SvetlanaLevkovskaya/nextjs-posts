@@ -9,7 +9,6 @@ type UsePostProps = {
 }
 
 export const usePost = ({ id, enabled = true }: UsePostProps) => {
-
   const queryClient = useQueryClient()
 
   return useQuery({
@@ -17,5 +16,6 @@ export const usePost = ({ id, enabled = true }: UsePostProps) => {
     queryFn: () => getPost(id),
     select: (data) => data,
     enabled: enabled && !queryClient.getQueryData(['post', id]), // Выполняем запрос только если данные отсутствуют в кэше
+    retry: 1,
   })
 }

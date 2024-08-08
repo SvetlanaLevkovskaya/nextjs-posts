@@ -31,7 +31,6 @@ export const CreatePostForm: FC = () => {
     resolver: yupResolver(createPostValidationSchema),
   })
 
-
   const { mutate: createPost } = useCreatePost((newPost) => {
     reset()
     router.push(`/posts/${newPost.id}`)
