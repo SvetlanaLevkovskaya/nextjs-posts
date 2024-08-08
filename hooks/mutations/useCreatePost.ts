@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
 
 
 type CreatePostInput = {
@@ -8,19 +7,17 @@ type CreatePostInput = {
   userId: number
 }
 
-export const useCreatePost = (options = {}) => {
+export const useCreatePost = (onSuccess?: (newPost: CreatePostInput & { id: number }) => void) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async (newPost: CreatePostInput) => {
-      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost)
-      return response.data
+      return { ...newPost, id: Date.now() }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["posts"],
-      })
+    onSuccess: (newPost) => {
+      queryClient.setQueryData(['post', newPost.id], newPost)
+
+      if (onSuccess) onSuccess(newPost)
     },
-    ...options,
   })
 }

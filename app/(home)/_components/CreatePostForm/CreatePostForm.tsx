@@ -31,16 +31,15 @@ export const CreatePostForm: FC = () => {
     resolver: yupResolver(createPostValidationSchema),
   })
 
-  const { mutate: createPost } = useCreatePost({
-    onSuccess: () => {
-      reset()
-      router.push('/')
-    },
+
+  const { mutate: createPost } = useCreatePost((newPost) => {
+    reset()
+    router.push(`/posts/${newPost.id}`)
   })
+
   const onSubmit: SubmitHandler<CreatePostFormData> = (data) => {
     createPost({ ...data, userId: 1 })
   }
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.formWrapper}>
