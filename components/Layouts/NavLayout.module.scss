@@ -1,0 +1,7 @@
+.navLayout {
+  @apply flex flex-col min-h-dvh;
+
+  & .main {
+    @apply w-full h-full flex-center-center flex-grow bg-black text-white px-8 tb:pl-16 tb:pr-8;
+  }
+}

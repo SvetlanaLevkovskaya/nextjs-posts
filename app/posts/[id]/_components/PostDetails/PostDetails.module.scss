@@ -1,0 +1,11 @@
+.postDetailsWrapper {
+  @apply flex flex-col gap-6 px-0 tb:px-8 ds:px-32 xl:px-48;
+
+  & .titleWrapper {
+    @apply flex flex-col xl:flex-row xl:justify-between gap-2 xl:gap-10;
+
+    & p {
+      @apply text-gray-4 flex justify-end flex-shrink-0;
+    }
+  }
+}

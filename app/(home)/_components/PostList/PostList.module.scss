@@ -1,0 +1,11 @@
+.postListWrapper {
+  @apply flex flex-col justify-center w-full gap-6 px-0 tb:px-10;
+
+  & .postCard {
+    @apply bg-gray-2 shadow-md rounded-lg text-s_body overflow-hidden p-4 min-w-72;
+
+    & p {
+      @apply mt-2 text-gray-4;
+    }
+  }
+}
