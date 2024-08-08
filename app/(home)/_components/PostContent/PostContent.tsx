@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -20,7 +20,6 @@ interface PostsContentProps {
 
 export const PostsContent: FC<PostsContentProps> = ({ page }) => {
   const router = useRouter()
-  const [isCreating, setIsCreating] = useState(false)
   const { data, isLoading, error } = usePosts({ page })
 
   if (isLoading) return <Spinner />
