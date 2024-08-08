@@ -1,12 +1,17 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useState } from 'react'
+
+import Image from 'next/image'
+
+import { Spinner } from '@/components/ui'
 
 import { usePost } from '@/hooks/query/usePost'
 import { useUser } from '@/hooks/query/useUser'
+import { generateImageUrl } from '@/utils/generateImageUrl'
 
 import styles from './PostDetails.module.scss'
-import { Spinner } from '@/components/ui'
+
 
 type PostDetailsProps = {
   postId: number
@@ -20,10 +25,15 @@ export const PostDetails: FC<PostDetailsProps> = ({ postId }) => {
     error: errorUser,
   } = useUser({ userId: post?.userId || 0, enabled: !!post })
 
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false)
+  const [hasImageError, setHasImageError] = useState<boolean>(false)
+
   if (isLoadingPost || isLoadingUser) return <Spinner />
   if (errorPost || errorUser) return <div>Error loading data</div>
 
   if (!post || !user) return <div>No data found</div>
+
+  const imageUrl = generateImageUrl(postId)
 
   return (
     <div className={styles.postDetailsWrapper}>
@@ -32,6 +42,24 @@ export const PostDetails: FC<PostDetailsProps> = ({ postId }) => {
         <p>Author: {user.username}</p>
       </div>
       <p>{post.body}</p>
+
+      {!isImageLoaded && <Spinner />}
+
+      <div className={styles.imageWrapper}>
+        {hasImageError && <div className={styles.noDataContainer}>No Data</div>}
+        <Image
+          src={imageUrl}
+          alt={`Furniture related to post ${postId}`}
+          className={styles.postImage}
+          width={200}
+          height={200}
+          onLoadingComplete={() => setIsImageLoaded(true)}
+          onError={() => {
+            setIsImageLoaded(true)
+            setHasImageError(true)
+          }}
+        />
+      </div>
     </div>
   )
 }

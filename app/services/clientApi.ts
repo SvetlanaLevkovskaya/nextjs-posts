@@ -2,12 +2,13 @@ import axios from 'axios'
 
 import { Post, User } from '@/types'
 
+
 interface PostsResponse {
   posts: Post[]
   totalPages: number
 }
 
-export async function getPosts(page: number | string): Promise<PostsResponse> {
+export async function getPosts(page: number): Promise<PostsResponse> {
   const response = await axios.get(
     `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=20`
   )

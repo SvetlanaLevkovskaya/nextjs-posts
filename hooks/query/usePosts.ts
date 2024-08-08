@@ -2,8 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 
 import { getPosts } from '@/app/services/clientApi'
 
+
 type UsePostsProps = {
-  page: number | string
+  page: number
   enabled?: boolean
 }
 

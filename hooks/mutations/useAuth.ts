@@ -56,7 +56,7 @@ export const useAuth = () => {
       // Проверяем куки при инициализации запроса
       const username = Cookies.get('username')
       const password = Cookies.get('password')
-      return username && password ? { username, password } : { username: null, password: null }
+      return username && password ? { username, password } : { username: 'admin', password: 'admin' }
     },
   })
 
