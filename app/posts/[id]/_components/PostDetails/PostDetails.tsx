@@ -25,7 +25,6 @@ export const PostDetails: FC<PostDetailsProps> = ({ postId }) => {
     error: errorUser,
   } = useUser({ userId: post?.userId || 0, enabled: !!post })
 
-  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false)
   const [hasImageError, setHasImageError] = useState<boolean>(false)
 
   if (isLoadingPost || isLoadingUser) return <Spinner />
@@ -43,8 +42,6 @@ export const PostDetails: FC<PostDetailsProps> = ({ postId }) => {
       </div>
       <p>{post.body}</p>
 
-      {!isImageLoaded && <Spinner />}
-
       <div className={styles.imageWrapper}>
         {hasImageError && <div className={styles.noDataContainer}>No Data</div>}
         <Image
@@ -53,9 +50,7 @@ export const PostDetails: FC<PostDetailsProps> = ({ postId }) => {
           className={styles.postImage}
           width={200}
           height={200}
-          onLoadingComplete={() => setIsImageLoaded(true)}
           onError={() => {
-            setIsImageLoaded(true)
             setHasImageError(true)
           }}
         />
