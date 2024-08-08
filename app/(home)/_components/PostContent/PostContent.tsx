@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -11,6 +11,8 @@ import { usePosts } from '@/hooks/query/usePosts'
 import styles from './PostContent.module.scss'
 
 import { PostList } from '@/app/(home)/_components'
+import { CreatePostForm } from '@/app/(home)/_components/CreatePostForm/CreatePostForm'
+
 
 interface PostsContentProps {
   page: number
@@ -18,6 +20,7 @@ interface PostsContentProps {
 
 export const PostsContent: FC<PostsContentProps> = ({ page }) => {
   const router = useRouter()
+  const [isCreating, setIsCreating] = useState(false)
   const { data, isLoading, error } = usePosts({ page })
 
   if (isLoading) return <Spinner />
@@ -51,6 +54,8 @@ export const PostsContent: FC<PostsContentProps> = ({ page }) => {
           {'>'}
         </Button>
       </div>
+
+      <CreatePostForm />
     </div>
   )
 }

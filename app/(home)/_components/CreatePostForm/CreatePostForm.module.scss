@@ -1,0 +1,15 @@
+.wrapper {
+  @apply flex justify-end mx-9;
+
+  & .formWrapper {
+    @apply w-full max-w-md p-8 bg-gray-3 rounded-md;
+
+    & form {
+      @apply flex flex-col gap-5;
+
+      & .btn {
+        @apply w-full;
+      }
+    }
+  }
+}
