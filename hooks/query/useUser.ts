@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { getUser } from '@/app/services/clientApi'
 
@@ -9,11 +9,12 @@ type UseUserProps = {
 }
 
 export const useUser = ({ userId, enabled = true }: UseUserProps) => {
+  const queryClient = useQueryClient()
   return useQuery({
     queryKey: ['user', userId],
     queryFn: () => getUser(userId),
     select: (data) => data,
-    enabled,
-    retry: 1,
+    enabled: enabled && !queryClient.getQueryData(['user', userId]),
+    retry: 0,
   })
 }

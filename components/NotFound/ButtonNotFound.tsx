@@ -1,14 +1,11 @@
 'use client'
 
-import type { FC } from 'react'
-
 import { useRouter } from 'next/navigation'
 
 import { Button } from '@/ui/Button/Button'
 
-interface ButtonNotFoundProps {}
 
-export const ButtonNotFound: FC<ButtonNotFoundProps> = () => {
+export const ButtonNotFound = () => {
   const { push } = useRouter()
 
   return (

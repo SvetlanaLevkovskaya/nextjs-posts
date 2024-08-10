@@ -1,10 +1,11 @@
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 
 interface SpinnerProps {
   size?: number
   center?: boolean
   className?: string
   currentColor?: boolean
+  children?: ReactNode
 }
 
 export const Spinner: FC<SpinnerProps> = ({ size = 50, currentColor }) => {

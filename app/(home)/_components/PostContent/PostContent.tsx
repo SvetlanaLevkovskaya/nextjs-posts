@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -16,6 +16,7 @@ import { CreatePostForm } from '@/app/(home)/_components/CreatePostForm/CreatePo
 
 interface PostsContentProps {
   page: number
+  children?: ReactNode
 }
 
 export const PostsContent: FC<PostsContentProps> = ({ page }) => {

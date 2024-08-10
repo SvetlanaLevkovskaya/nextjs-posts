@@ -6,22 +6,25 @@ import { Post, User } from '@/types'
 
 
 export const handleApiError = (error: unknown): string => {
+  let errorMessage = 'Unexpected Error'
+
   if (axios.isAxiosError(error)) {
     if (error.response) {
       console.error(error.message)
-      return error.message || error.response.statusText
+      errorMessage = error.message || error.response.statusText
     } else if (error.request) {
       console.error('No Response Error:', error.request.statusText)
-      return error.request.statusText
+      errorMessage = error.request.statusText || 'No Response from server'
     }
   } else if (error instanceof Error) {
     console.error('Unknown Error:', error.message)
-    return error.message
+    errorMessage = error.message
   } else {
     console.error('Unexpected Error:', error)
-    return error as string
+    errorMessage = error as string
   }
-  return 'Unexpected Error'
+
+  return errorMessage
 }
 
 const instanceAxios = axios.create({
@@ -32,6 +35,7 @@ instanceAxios.interceptors.response.use(
   (res) => res,
   (error) => {
     const errorMessage = handleApiError(error)
+    customToastError(errorMessage)
     return Promise.reject(new Error(errorMessage))
   }
 )
@@ -52,7 +56,6 @@ export async function getPosts(page: number): Promise<PostsResponse> {
       totalPages,
     }
   } catch (error) {
-    customToastError('Error fetching posts')
     throw new Error(handleApiError(error))
   }
 }
@@ -62,7 +65,6 @@ export async function getPost(id: number): Promise<Post> {
     const response = await instanceAxios.get(`/posts/${id}`)
     return response.data
   } catch (error) {
-    customToastError('Error fetching post')
     throw new Error(handleApiError(error))
   }
 }
@@ -72,7 +74,6 @@ export async function getUser(userId: number): Promise<User> {
     const response = await instanceAxios.get(`/users/${userId}`)
     return response.data
   } catch (error) {
-    customToastError('Error fetching user')
     throw new Error(handleApiError(error))
   }
 }

@@ -7,7 +7,7 @@ type CreatePostInput = {
   userId: number
 }
 
-export const useCreatePost = (onSuccess?: (newPost: CreatePostInput & { id: number }) => void) => {
+export const useCreatePost = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -16,8 +16,6 @@ export const useCreatePost = (onSuccess?: (newPost: CreatePostInput & { id: numb
     },
     onSuccess: (newPost) => {
       queryClient.setQueryData(['post', newPost.id], newPost)
-
-      if (onSuccess) onSuccess(newPost)
     },
   })
 }

@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { type FC, ReactNode } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -10,8 +10,10 @@ import { useAuth } from '@/hooks/mutations/useAuth'
 
 import styles from './Header.module.css'
 
+
 interface HeaderProps {
   isAuth: boolean
+  children?: ReactNode
 }
 
 export const Header: FC<HeaderProps> = ({ isAuth }) => {

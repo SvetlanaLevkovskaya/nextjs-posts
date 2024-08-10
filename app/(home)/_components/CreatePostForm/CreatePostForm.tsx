@@ -1,6 +1,5 @@
 'use client'
 
-import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -19,7 +18,7 @@ interface CreatePostFormData {
   body: string
 }
 
-export const CreatePostForm: FC = () => {
+export const CreatePostForm = () => {
   const router = useRouter()
 
   const {
@@ -31,14 +30,20 @@ export const CreatePostForm: FC = () => {
     resolver: yupResolver(createPostValidationSchema),
   })
 
-  const { mutate: createPost } = useCreatePost((newPost) => {
-    reset()
-    router.push(`/posts/${newPost.id}`)
-  })
+  const { mutate: createPost } = useCreatePost()
 
   const onSubmit: SubmitHandler<CreatePostFormData> = (data) => {
-    createPost({ ...data, userId: 1 })
+    createPost(
+      { ...data, userId: 1 },
+      {
+        onSuccess: (newPost) => {
+          reset()
+          router.push(`/posts/${newPost.id}`)
+        },
+      }
+    )
   }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.formWrapper}>

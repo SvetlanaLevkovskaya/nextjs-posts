@@ -1,6 +1,6 @@
 'use client'
 
-import { type FC, type PropsWithChildren } from 'react'
+import { type FC, type PropsWithChildren, ReactNode } from 'react'
 
 import clsx from 'clsx'
 
@@ -8,9 +8,11 @@ import styles from './NavLayout.module.scss'
 
 import { Header } from './components/Header/Header'
 
+
 interface NavLayoutProps extends PropsWithChildren {
   isAuth: boolean
   disabledPadding?: boolean
+  children?: ReactNode
 }
 
 export const NavLayout: FC<NavLayoutProps> = ({ isAuth, disabledPadding, children }) => {

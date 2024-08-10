@@ -14,6 +14,6 @@ export const usePosts = ({ page, enabled = true }: UsePostsProps) => {
     queryFn: () => getPosts(page),
     select: ({ posts, totalPages }) => ({ posts, totalPages }),
     enabled,
-    retry: 1,
+    retry: 0,
   })
 }

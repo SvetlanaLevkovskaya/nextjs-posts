@@ -15,7 +15,7 @@ export const usePost = ({ id, enabled = true }: UsePostProps) => {
     queryKey: ['post', id],
     queryFn: () => getPost(id),
     select: (data) => data,
-    enabled: enabled && !queryClient.getQueryData(['post', id]), // Выполняем запрос только если данные отсутствуют в кэше
-    retry: 1,
+    enabled: enabled && !queryClient.getQueryData(['post', id]),
+    retry: 0,
   })
 }

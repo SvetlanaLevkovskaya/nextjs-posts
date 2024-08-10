@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, useState } from 'react'
+import { FC, ReactNode, useState } from 'react'
 
 import Image from 'next/image'
 
@@ -15,6 +15,7 @@ import styles from './PostDetails.module.scss'
 
 type PostDetailsProps = {
   postId: number
+  children?: ReactNode
 }
 
 export const PostDetails: FC<PostDetailsProps> = ({ postId }) => {

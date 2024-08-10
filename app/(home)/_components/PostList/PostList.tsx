@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import Link from 'next/link'
 
@@ -6,8 +6,10 @@ import styles from './PostList.module.scss'
 
 import { Post } from '@/types'
 
+
 type PostProps = {
   posts: Post[]
+  children?: ReactNode
 }
 
 export const PostList: FC<PostProps> = ({ posts }) => (
