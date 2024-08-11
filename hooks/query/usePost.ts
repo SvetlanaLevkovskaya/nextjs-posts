@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { getPost } from '@/app/services/clientApi'
+import { getPost } from '@/services/clientApi'
 
 
 type UsePostProps = {

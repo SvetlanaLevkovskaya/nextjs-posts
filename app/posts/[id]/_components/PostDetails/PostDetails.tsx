@@ -26,14 +26,14 @@ export const PostDetails: FC<PostDetailsProps> = ({ postId }) => {
     error: errorUser,
   } = useUser({ userId: post?.userId || 0, enabled: !!post })
 
+  const imageUrl = generateImageUrl(postId)
+
   const [hasImageError, setHasImageError] = useState<boolean>(false)
 
   if (isLoadingPost || isLoadingUser) return <Spinner />
-  if (errorPost || errorUser) return <div>Error loading data</div>
+  if (errorPost || errorUser || !imageUrl) return <div>Error loading data</div>
 
   if (!post || !user) return <div>No data found</div>
-
-  const imageUrl = generateImageUrl(postId)
 
   return (
     <div className={styles.postDetailsWrapper}>

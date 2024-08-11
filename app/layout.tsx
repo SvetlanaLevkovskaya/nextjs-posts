@@ -7,10 +7,11 @@ import { Inter } from 'next/font/google'
 
 import { Spinner } from '@/components/ui'
 
+import AuthProvider from '@/config/auth/authProvider'
+import QueryProvider from '@/config/query/query'
+
 import './globals.css'
 
-import AuthProvider from '@/app/config/providers/auth/authProvider'
-import QueryProvider from '@/app/config/providers/query/query'
 
 const inter = Inter({ subsets: ['latin'] })
 

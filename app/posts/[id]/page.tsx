@@ -2,9 +2,11 @@ import type { Metadata } from 'next'
 
 import { NavLayout } from '@/components/Layouts/NavLayout'
 
-import { getAuth } from '@/app/config/providers/auth/getAuth'
+import { getAuth } from '@/config/auth/getAuth'
+
 import { PostDetails } from '@/app/posts/[id]/_components'
 import { Params } from '@/types'
+
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return { title: `Post ${params.id}` }

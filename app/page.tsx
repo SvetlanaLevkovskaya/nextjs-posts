@@ -1,7 +1,9 @@
 import { NavLayout } from '@/components/Layouts/NavLayout'
 
+import { getAuth } from '@/config/auth/getAuth'
+
 import { PostsContent } from '@/app/(home)/_components'
-import { getAuth } from '@/app/config/providers/auth/getAuth'
+
 
 export default function PostsPage({ searchParams }: { searchParams: { page: string } }) {
   const page = parseInt(searchParams.page) || 1

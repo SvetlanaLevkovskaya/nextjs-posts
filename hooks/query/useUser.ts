@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { getUser } from '@/app/services/clientApi'
+import { getUser } from '@/services/clientApi'
 
 
 type UseUserProps = {

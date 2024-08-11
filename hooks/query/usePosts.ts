@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getPosts } from '@/app/services/clientApi'
+import { getPosts } from '@/services/clientApi'
 
 
 type UsePostsProps = {

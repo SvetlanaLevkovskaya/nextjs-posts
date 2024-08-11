@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 
 import { useAuth } from '@/hooks/mutations/useAuth'
 
+
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
   const { isAuthenticated, user } = useAuth()
