@@ -1,14 +1,12 @@
 'use client'
 
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useState } from 'react'
 
-import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Loader, TextInput, Textarea } from '@mantine/core'
+import { useForm } from '@mantine/form'
 import { useRouter } from 'next/navigation'
 
-import { Button, Input, Spinner, TextArea } from '@/components/ui'
-
 import { useCreatePost } from '@/hooks/mutations/useCreatePost'
-import { createPostValidationSchema } from '@/utils/validationSchema'
 
 import styles from './CreatePostForm.module.scss'
 
@@ -20,25 +18,32 @@ interface CreatePostFormData {
 
 export const CreatePostForm = () => {
   const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<CreatePostFormData>({
-    resolver: yupResolver(createPostValidationSchema),
+  const form = useForm<CreatePostFormData>({
+    initialValues: {
+      title: '',
+      body: '',
+    },
+    validate: {
+      title: (value) => (value.length < 5 ? 'Title must be at least 5 characters' : null),
+      body: (value) => (value.length < 10 ? 'Body must be at least 10 characters' : null),
+    },
   })
 
   const { mutate: createPost } = useCreatePost()
 
-  const onSubmit: SubmitHandler<CreatePostFormData> = (data) => {
+  const onSubmit = async (values: CreatePostFormData) => {
+    setIsSubmitting(true)
     createPost(
-      { ...data, userId: 1 },
+      { ...values, userId: 1 },
       {
         onSuccess: (newPost) => {
-          reset()
+          form.reset()
           router.push(`/posts/${newPost.id}`)
+        },
+        onSettled: () => {
+          setIsSubmitting(false)
         },
       }
     )
@@ -48,16 +53,46 @@ export const CreatePostForm = () => {
     <div className={styles.wrapper}>
       <div className={styles.formWrapper}>
         <h4 className="mb-4">Create New Post</h4>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            register={register('title')}
+        <form onSubmit={form.onSubmit(onSubmit)}>
+          <TextInput
+            size="lg"
             placeholder="Title"
-            error={errors.title?.message}
             disabled={isSubmitting}
+            {...form.getInputProps('title')}
+            error={form.errors.title}
+            className="transition-all2"
+            classNames={{
+              error: 'animate-scaleIn text-s_text',
+              wrapper: 'rounded-md bg-gray-2',
+              input:
+                'w-full border border-transparent transition-colors bg-gray-2 text-white text-s_text rounded-lg placeholder-gray-4',
+            }}
           />
-          <TextArea register={register('body')} placeholder="Body" error={errors.body?.message} />
-          <Button color="neon" className={styles.btn} disabled={isSubmitting}>
-            {isSubmitting ? <Spinner /> : 'Create Post'}
+          <Textarea
+            size="xl"
+            placeholder="Body"
+            disabled={isSubmitting}
+            {...form.getInputProps('body')}
+            error={form.errors.body}
+            className="transition-all2"
+            classNames={{
+              error: 'animate-scaleIn text-s_text',
+              wrapper: 'rounded-md bg-gray-2',
+              input:
+                'w-full border border-transparent transition-colors bg-gray-2 text-white text-s_text rounded-lg placeholder-gray-4',
+            }}
+          />
+          <Button
+            radius={100}
+            fw={400}
+            fz={14}
+            size="lg"
+            type="submit"
+            fullWidth
+            color="neon"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? <Loader size="sm" /> : 'Create Post'}
           </Button>
         </form>
       </div>

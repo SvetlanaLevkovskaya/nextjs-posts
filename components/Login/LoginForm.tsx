@@ -1,30 +1,32 @@
 'use client'
 
-import { SubmitHandler, useForm } from 'react-hook-form'
-
-import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, TextInput } from '@mantine/core'
+import { useForm } from '@mantine/form'
 
 import { customToastError, customToastSuccess } from '@/ui/CustomToast/CustomToast'
-import { Button, Input } from '@/ui/index'
 
 import { useAuth } from '@/hooks/mutations/useAuth'
-import { validationSchema } from '@/utils/validationSchema'
 
 import styles from './LoginForm.module.scss'
 
 import { FormData } from '@/types'
 
+
 export const LoginForm = () => {
   const { login } = useAuth()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormData>({
-    resolver: yupResolver(validationSchema),
+
+  const form = useForm<FormData>({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validate: {
+      username: (value) => (value.trim() ? null : 'Username is required'),
+      password: (value) => (value.length >= 5 ? null : 'Password must be at least 5 characters'),
+    },
   })
 
-  const onSubmit: SubmitHandler<FormData> = async ({ username, password }) => {
+  const onSubmit = async ({ username, password }: FormData) => {
     if (username === 'admin' && password === 'admin') {
       login({ username, password })
       customToastSuccess(`User ${username} logged in`)
@@ -39,23 +41,45 @@ export const LoginForm = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.formWrapper}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            register={register('username', { required: true })}
+        <form onSubmit={form.onSubmit(onSubmit)}>
+          <TextInput
+            {...form.getInputProps('username')}
             placeholder="admin"
-            error={errors.username?.message}
-            required
-            autofocus
+            size="lg"
+            autoFocus
+            className="transition-all2"
+            classNames={{
+              error: 'animate-scaleIn text-s_text',
+              wrapper: 'rounded-md bg-gray-2',
+              input:
+                'w-full border border-transparent transition-colors bg-gray-2 text-white text-s_text rounded-lg placeholder-gray-4',
+            }}
+            error={form.errors.username}
           />
-
-          <Input
-            register={register('password', { required: true })}
+          <TextInput
+            {...form.getInputProps('password')}
             placeholder="admin"
+            size="lg"
             type="password"
-            error={errors.password?.message}
-            required
+            className="transition-all2"
+            classNames={{
+              error: 'animate-scaleIn text-s_text',
+              wrapper: 'rounded-md bg-gray-2',
+              input:
+                'w-full border border-transparent transition-colors bg-gray-2 text-white text-s_text rounded-lg placeholder-gray-4',
+            }}
+            error={form.errors.password}
           />
-          <Button color="neon" className={styles.btn} disabled={isSubmitting}>
+          <Button
+            radius={100}
+            fw={400}
+            fz={14}
+            size="lg"
+            type="submit"
+            fullWidth
+            color="neon"
+            className="transition-all2"
+          >
             Login
           </Button>
         </form>
