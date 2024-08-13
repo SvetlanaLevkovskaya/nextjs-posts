@@ -46,28 +46,16 @@ export const LoginForm = () => {
             {...form.getInputProps('username')}
             placeholder="admin"
             size="lg"
+            radius="md"
             autoFocus
-            className="transition-all2"
-            classNames={{
-              error: 'animate-scaleIn text-s_text',
-              wrapper: 'rounded-md bg-gray-2',
-              input:
-                'w-full border border-transparent transition-colors bg-gray-2 text-white text-s_text rounded-lg placeholder-gray-4',
-            }}
             error={form.errors.username}
           />
           <TextInput
             {...form.getInputProps('password')}
             placeholder="admin"
             size="lg"
+            radius="md"
             type="password"
-            className="transition-all2"
-            classNames={{
-              error: 'animate-scaleIn text-s_text',
-              wrapper: 'rounded-md bg-gray-2',
-              input:
-                'w-full border border-transparent transition-colors bg-gray-2 text-white text-s_text rounded-lg placeholder-gray-4',
-            }}
             error={form.errors.password}
           />
           <Button

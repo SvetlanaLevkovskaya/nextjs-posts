@@ -1,6 +1,6 @@
 'use client'
 
-import { createTheme } from '@mantine/core'
+import { TextInput, Textarea, createTheme } from '@mantine/core'
 
 
 export const theme = createTheme({
@@ -65,5 +65,31 @@ export const theme = createTheme({
       '#5d1cae',
       '#501599',
     ],
+  },
+  components: {
+    TextInput: TextInput.extend({
+      styles: {
+        error: { color: 'red', fontSize: '0.875rem', animation: 'scaleIn 0.3s ease-out' },
+        wrapper: { backgroundColor: '#25272C', borderRadius: '0.375rem' },
+        input: {
+          backgroundColor: '#25272C',
+          fontSize: '0.875rem',
+          color: 'white',
+          transition: 'color 0.3s',
+        },
+      },
+    }),
+    Textarea: Textarea.extend({
+      styles: {
+        error: { color: 'red', fontSize: '0.875rem', animation: 'scaleIn 0.3s ease-out' },
+        wrapper: { backgroundColor: '#25272C', borderRadius: '0.375rem' },
+        input: {
+          backgroundColor: '#25272C',
+          fontSize: '0.875rem',
+          color: 'white',
+          transition: 'color 0.3s',
+        },
+      },
+    }),
   },
 })

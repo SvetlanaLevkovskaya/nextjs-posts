@@ -9,7 +9,7 @@ import { useAuth } from '@/hooks/mutations/useAuth'
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
-  const { isAuthenticated, user } = useAuth()
+  const { isAuthenticated } = useAuth()
 
   useEffect(() => {
     if (!isAuthenticated) {

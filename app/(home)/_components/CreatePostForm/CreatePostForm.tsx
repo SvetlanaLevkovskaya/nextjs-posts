@@ -61,12 +61,6 @@ export const CreatePostForm = () => {
             {...form.getInputProps('title')}
             error={form.errors.title}
             className="transition-all2"
-            classNames={{
-              error: 'animate-scaleIn text-s_text',
-              wrapper: 'rounded-md bg-gray-2',
-              input:
-                'w-full border border-transparent transition-colors bg-gray-2 text-white text-s_text rounded-lg placeholder-gray-4',
-            }}
           />
           <Textarea
             size="xl"
@@ -75,12 +69,6 @@ export const CreatePostForm = () => {
             {...form.getInputProps('body')}
             error={form.errors.body}
             className="transition-all2"
-            classNames={{
-              error: 'animate-scaleIn text-s_text',
-              wrapper: 'rounded-md bg-gray-2',
-              input:
-                'w-full border border-transparent transition-colors bg-gray-2 text-white text-s_text rounded-lg placeholder-gray-4',
-            }}
           />
           <Button
             radius={100}

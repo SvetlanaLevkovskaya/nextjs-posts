@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core'
+import clsx from 'clsx'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
@@ -14,7 +15,9 @@ import QueryProvider from '@/config/query/query'
 import './globals.css'
 import '@mantine/core/styles.css'
 
-import { theme } from '@/theme'
+
+
+import { theme } from '@/theme';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -31,7 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ColorSchemeScript />
         <title></title>
       </head>
-      <body className={inter.className}>
+      <body className={clsx(inter.className, 'bg-black text-white')}>
         <MantineProvider theme={theme}>
           <Suspense fallback={<Spinner />}>
             <QueryProvider>
